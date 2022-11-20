@@ -6,30 +6,33 @@ include_once "./config/data_access.php";
 $json = file_get_contents('php://input');
 $obj = (isset($json) ? json_decode($json) : null);
 
+//url base para acesso da api ao modificar ja altera todos os endpoints
+$url_base = "/api_backend/api/";
+
 // um array com as urls aceitas e os comandos a serem executadas em cada urls
 $urls = [
     "GET" => [
-        "/userapi/itens" => [
+        $url_base . "itens" => [
             'print_r(json_encode(sel_itens()));', 
             'print_r(json_encode(sel_itens_id($obj->id)));'
         ],
-        "/userapi/itens/familia" => 'print_r(json_encode(sel_itens_familia($obj->id)));',
-        "/userapi/familia" => [
+        $url_base . "itens/familia" => 'print_r(json_encode(sel_itens_familia($obj->id)));',
+        $url_base . "familia" => [
             'print_r(json_encode(sel_familia()));',
             'print_r(json_encode(sel_familia_id($obj->id)));'
         ]
     ],
     "POST" => [ 
-        "/userapi/itens" => 'print_r(json_encode(inserir_item($obj->descricao, $obj->saldo, $obj->familia)));',
-        "/userapi/familia" => 'print_r(json_encode(inserir_familia($obj->descricao)));'
+        $url_base . "itens" => 'print_r(json_encode(inserir_item($obj->descricao, $obj->saldo, $obj->familia)));',
+        $url_base . "familia" => 'print_r(json_encode(inserir_familia($obj->descricao)));'
     ], 
     "PUT" => [
-        "/userapi/itens" => 'print_r(json_encode(alt_item($obj->id, $obj->descricao, $obj->saldo, $obj->fam_id)));',
-        "/userapi/familia" => 'print_r(json_encode(alt_familia ($obj->id, $obj->descricao)));'
+        $url_base . "itens" => 'print_r(json_encode(alt_item($obj->id, $obj->descricao, $obj->saldo, $obj->fam_id)));',
+        $url_base . "familia" => 'print_r(json_encode(alt_familia ($obj->id, $obj->descricao)));'
     ],
     "DELETE" => [
-        "/userapi/itens" => "",
-        "/userapi/familia" => ""
+        $url_base . "itens" => "",
+        $url_base . "familia" => ""
     ]
 ];
 
@@ -51,13 +54,13 @@ header("content-type: application/json; charset= utf-8");
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':        
         switch ($_SERVER['REDIRECT_URL']){
-            case "/userapi/itens":
+            case $url_base . "itens":
                 ret_Api($obj, $urls);                
                 break;
-            case "/userapi/familia":
+            case $url_base . "familia":
                 ret_Api($obj, $urls);                
                 break;
-            case "/userapi/itens/familia":
+            case $url_base . "itens/familia":
                 if (($obj != null) && (isset($obj->id))){
                     eval($urls[$_SERVER['REQUEST_METHOD']][$_SERVER['REDIRECT_URL']]);
                 } else {
@@ -73,7 +76,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'POST':
         switch ($_SERVER["REDIRECT_URL"]) {
-            case "/userapi/itens":
+            case $url_base . "itens":
                 if ((isset($obj->descricao)) && (isset($obj->saldo)) && (isset($obj->familia))){
                     eval($urls[$_SERVER['REQUEST_METHOD']][$_SERVER['REDIRECT_URL']]);    
                 } else {
@@ -81,7 +84,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     echo("Verifique os dados informados.");
                 }                
                 break;
-            case "/userapi/familia":
+            case $url_base . "familia":
                 if (isset($obj->descricao)){
                     eval($urls[$_SERVER['REQUEST_METHOD']][$_SERVER['REDIRECT_URL']]);    
                 } else {
@@ -97,7 +100,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'PUT':
         switch ($_SERVER["REDIRECT_URL"]) {
-            case "/userapi/itens":
+            case $url_base . "itens":
                 if ((isset($obj->descricao)) && (isset($obj->saldo)) && (isset($obj->familia)) && (isset($obj->id))){
                     eval($urls[$_SERVER['REQUEST_METHOD']][$_SERVER['REDIRECT_URL']]);
                 } else {
@@ -105,7 +108,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     echo("Verifique os dados informados.");
                 } 
                 break;
-            case "/userapi/familia":
+            case $url_base . "familia":
                 if ((isset($obj->descricao)) && (isset($obj->id))){
                     eval($urls[$_SERVER['REQUEST_METHOD']][$_SERVER['REDIRECT_URL']]);
                 } else {

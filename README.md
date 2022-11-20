@@ -13,7 +13,7 @@ faltando apenas implementar o DELETE.
 
 ## Rota:
 
-> /userapi/itens
+> /url_base/itens
 
 ## Parâmetros e retorno
 
@@ -30,7 +30,7 @@ Se não for informado um id retornará todos os registros da tabela.
 ```
 ## Rota:
 
-> /userapi/familia
+> /url_base/familia
 
 ## Parâmetros e retorno
 
@@ -47,7 +47,7 @@ Se não for informado um id retornará todos os registros da tabela.
 ```
 ## Rota:
 
-> /userapi/itens/familia
+> /url_base/itens/familia
 
 ## Parâmetros e retorno
 
@@ -66,7 +66,7 @@ Parâmetro
 ## Rota:
 
 
-> /userapi/itens
+> /url_base/itens
 
 ## Parâmetros e retorno
 
@@ -87,7 +87,7 @@ Se informados corretamente retornará uma mensagem: "Linhas afetadas: valor_inte
 ## Rota:
 
 
-> /userapi/familia
+> /url_base/familia
 
 ## Parâmetros e retorno
 
@@ -107,7 +107,7 @@ Se informados corretamente retornará uma mensagem: "Linhas afetadas: valor_inte
 ## Rota:
 
 
-> /userapi/itens
+> /url_base/itens
 
 ## Parâmetros e retorno
 
@@ -129,7 +129,7 @@ Se informados corretamente retornará uma mensagem: "Linhas afetadas: valor_inte
 ## Rota:
 
 
-> /userapi/familia
+> /url_base/familia
 
 ## Parâmetros e retorno
 
